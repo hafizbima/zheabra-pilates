@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Service account key dari Google Cloud (RAHASIA — jangan pernah di-commit)
+pilates-manager-*.json
+*-key.json
+*.pem

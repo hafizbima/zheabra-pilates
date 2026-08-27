@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilates Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Pilates Manager</h1>
+    <nav id="nav">
+      <button data-tab="dashboard" class="active">Dashboard</button>
+      <button data-tab="klien">Klien</button>
+      <button data-tab="sesi">Sesi</button>
+      <button data-tab="paket">Paket</button>
+      <button data-tab="pembayaran">Pembayaran</button>
+    </nav>
+  </header>
+
+  <main id="app">
+    <div id="status"></div>
+
+    <!-- DASHBOARD -->
+    <section id="tab-dashboard" class="tab">
+      <div class="cards">
+        <div class="card"><h3>Total Klien</h3><p id="d-totalKlien">-</p></div>
+        <div class="card"><h3>Klien Aktif</h3><p id="d-klienAktif">-</p></div>
+        <div class="card"><h3>Sesi Hari Ini</h3><p id="d-sesiHariIni">-</p></div>
+        <div class="card"><h3>Pemasukan Bulan Ini</h3><p id="d-pemasukanBulanIni">-</p></div>
+      </div>
+      <h3>Sesi Hari Ini</h3>
+      <div id="d-sesiList"></div>
+
+      <div class="panel">
+        <div class="chart-head">
+          <h3>Trend Pengunjung</h3>
+          <div class="chart-range" id="trendRange">
+            <button data-days="7">7 hari</button>
+            <button data-days="30" class="active">30 hari</button>
+            <button data-days="all">Semua</button>
+          </div>
+        </div>
+        <canvas id="trendChart" height="280"></canvas>
+      </div>
+    </section>
+
+    <!-- KLIEN -->
+    <section id="tab-klien" class="tab hidden">
+      <div class="toolbar">
+        <button onclick="showForm('klien')">+ Tambah Klien</button>
+      </div>
+      <form id="form-klien" class="form hidden">
+        <input type="hidden" id="klien-id">
+        <input type="text" id="klien-nama" placeholder="Nama" required>
+        <input type="text" id="klien-noHP" placeholder="No HP">
+        <input type="email" id="klien-email" placeholder="Email">
+        <select id="klien-paketId"><option value="">Tanpa Paket</option></select>
+        <input type="number" id="klien-sisaSesi" placeholder="Sisa Sesi" value="0">
+        <button type="submit">Simpan</button>
+        <button type="button" onclick="hideForm('klien')">Batal</button>
+      </form>
+      <div class="table-wrap"><table id="tbl-klien"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <!-- SESI -->
+    <section id="tab-sesi" class="tab hidden">
+      <div class="toolbar">
+        <button onclick="showForm('sesi')">+ Tambah Sesi</button>
+      </div>
+      <form id="form-sesi" class="form hidden">
+        <input type="hidden" id="sesi-id">
+        <input type="date" id="sesi-tanggal" required>
+        <input type="time" id="sesi-waktu">
+        <input type="text" id="sesi-kelas" placeholder="Kelas (Reformer, Mat...)" required>
+        <input type="text" id="sesi-instruktur" placeholder="Instruktur">
+        <input type="number" id="sesi-kuota" placeholder="Kuota" value="0">
+        <button type="submit">Simpan</button>
+        <button type="button" onclick="hideForm('sesi')">Batal</button>
+      </form>
+      <div class="table-wrap"><table id="tbl-sesi"><thead></thead><tbody></tbody></table></div>
+      <div id="checkin" class="hidden"></div>
+    </section>
+
+    <!-- PAKET -->
+    <section id="tab-paket" class="tab hidden">
+      <div class="toolbar">
+        <button onclick="showForm('paket')">+ Tambah Paket</button>
+      </div>
+      <form id="form-paket" class="form hidden">
+        <input type="hidden" id="paket-id">
+        <input type="text" id="paket-nama" placeholder="Nama Paket" required>
+        <input type="number" id="paket-harga" placeholder="Harga (Rp)" required>
+        <input type="number" id="paket-jumlahSesi" placeholder="Jumlah Sesi" required>
+        <button type="submit">Simpan</button>
+        <button type="button" onclick="hideForm('paket')">Batal</button>
+      </form>
+      <div class="table-wrap"><table id="tbl-paket"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <!-- PEMBAYARAN -->
+    <section id="tab-pembayaran" class="tab hidden">
+      <div class="toolbar">
+        <button onclick="showForm('pembayaran')">+ Catat Pembayaran</button>
+      </div>
+      <form id="form-pembayaran" class="form hidden">
+        <select id="pay-klienId" required></select>
+        <input type="number" id="pay-jumlah" placeholder="Jumlah (Rp)" required>
+        <input type="number" id="pay-sesi" placeholder="Jumlah Sesi" required>
+        <input type="date" id="pay-tanggal">
+        <input type="text" id="pay-keterangan" placeholder="Keterangan">
+        <button type="submit">Simpan</button>
+        <button type="button" onclick="hideForm('pembayaran')">Batal</button>
+      </form>
+      <div class="table-wrap"><table id="tbl-pembayaran"><thead></thead><tbody></tbody></table></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="app.js"></script>
+</body>
+</html>
